@@ -8,7 +8,7 @@ const CatViewerImageContainer = React.lazy(
 
 function CatViewer() {
   return (
-    <div style={{ flex: 1, backgroundColor: 'red' }}>
+    <div style={{ flex: 1, display: 'flex', justifyContent: 'center', width: '100vw' }}>
       <React.Suspense fallback={<Spinner />}>
         <CatViewerImageContainer />
       </React.Suspense>
