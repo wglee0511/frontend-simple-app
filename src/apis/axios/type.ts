@@ -15,6 +15,12 @@ export interface CustomError {
   error: APIRejected;
 }
 
-export type ApiFetchFunction<R> = ({ limit }: { limit?: number }) => Promise<R>;
+export type ApiFetchFunction<R> = ({
+  limit,
+  page,
+}: {
+  limit?: number;
+  page?: number;
+}) => Promise<R>;
 
 export type ApiFetchWithParamsFunction<R, P> = (params: P) => Promise<R>;
