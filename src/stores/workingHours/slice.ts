@@ -12,12 +12,12 @@ const workingHoursSlice = createSlice({
   name: 'workingHours',
   initialState,
   reducers: {
-    setWorkingHours: (state, { payload }: PayloadAction<WeeklyWorkingType[]>) => {
+    setStoreWorkingHours: (state, { payload }: PayloadAction<WeeklyWorkingType[]>) => {
       state.workingHours = payload;
     },
   },
 });
 
-export const { setWorkingHours } = workingHoursSlice.actions;
+export const { setStoreWorkingHours } = workingHoursSlice.actions;
 
 export default workingHoursSlice.reducer;

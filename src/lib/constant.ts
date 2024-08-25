@@ -19,3 +19,5 @@ export const WeekDays = [
 export const INITIAL_WEEK_WORKING_HOURS: WeeklyWorkingType[] = map(WeekDays, (value) => {
   return { weekDay: value, workingHours: [] };
 });
+
+export const MINUTE_VALUES = [0, 15, 30, 45];
