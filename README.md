@@ -37,6 +37,124 @@ npm run start
 ## 폴더구조
 
 ```
+./src
+├── App.css
+├── App.tsx
+├── apis
+│   ├── axios
+│   │   ├── index.ts
+│   │   ├── main.ts
+│   │   └── type.ts
+│   └── image
+│       ├── index.ts
+│       └── urls.ts
+├── components
+│   ├── Divider
+│   │   ├── index.tsx
+│   │   └── type.ts
+│   ├── ErrorBoundary
+│   │   ├── ErrorBoundary.tsx
+│   │   └── index.ts
+│   ├── Icon
+│   │   ├── Icons
+│   │   │   ├── AccountCircle.tsx
+│   │   │   ├── Add.tsx
+│   │   │   ├── AddCircle.tsx
+│   │   │   ├── ArrowBack.tsx
+│   │   │   ├── ArrowDown.tsx
+│   │   │   ├── ArrowDownFill.tsx
+│   │   │   ├── ArrowDownS.tsx
+│   │   │   ├── ArrowDropDown.tsx
+│   │   │   ├── ArrowDropDownFill.tsx
+│   │   │   ├── ArrowDropLeft.tsx
+│   │   │   ├── ArrowDropLeftFill.tsx
+│   │   │   ├── ArrowDropRight.tsx
+│   │   │   ├── ArrowDropRightFill.tsx
+│   │   │   ├── ArrowDropUp.tsx
+│   │   │   ├── ArrowDropUpFill.tsx
+│   │   │   ├── ArrowLeftS.tsx
+│   │   │   ├── ArrowLeftSFill.tsx
+│   │   │   ├── ArrowRight.tsx
+│   │   │   ├── ArrowRightS.tsx
+│   │   │   ├── ArrowRightSFill.tsx
+│   │   │   ├── ArrowUp.tsx
+│   │   │   ├── ArrowUpS.tsx
+│   │   │   ├── ArrowUpSFill.tsx
+│   │   │   ├── ArrowUpdown.tsx
+│   │   │   ├── DeleteFill.tsx
+│   │   │   └── index.tsx
+│   │   ├── PressableIcon
+│   │   │   ├── constant.ts
+│   │   │   ├── index.tsx
+│   │   │   └── type.ts
+│   │   ├── index.tsx
+│   │   └── type.ts
+│   ├── Masonry
+│   │   ├── index.tsx
+│   │   └── type.ts
+│   ├── Menu
+│   │   ├── MenuButton
+│   │   │   ├── index.tsx
+│   │   │   ├── type.ts
+│   │   │   └── util.ts
+│   │   ├── MenuList
+│   │   │   ├── index.tsx
+│   │   │   └── type.ts
+│   │   ├── index.tsx
+│   │   └── type.ts
+│   ├── Scroll
+│   │   ├── index.tsx
+│   │   └── type.ts
+│   ├── Spinner
+│   │   ├── Spinner.tsx
+│   │   └── index.ts
+│   ├── Text
+│   │   ├── index.tsx
+│   │   └── type.ts
+│   └── Toast
+│       ├── index.tsx
+│       └── type.ts
+├── containers
+│   ├── CatViewer
+│   │   ├── CatViewerImageContainer.tsx
+│   │   └── type.ts
+│   └── WorkingHours
+│       ├── WorkingHourWeekDayContainer.tsx
+│       ├── WorkingHoursContainer.tsx
+│       ├── WorkingHoursTimeSelector.tsx
+│       └── type.ts
+├── index.css
+├── index.tsx
+├── lib
+│   ├── constant.ts
+│   ├── list.ts
+│   └── text.ts
+├── logo.svg
+├── pages
+│   └── main
+│       ├── CatViewer.tsx
+│       ├── WorkingHours.tsx
+│       └── index.ts
+├── stores
+│   ├── hooks.ts
+│   ├── index.ts
+│   ├── modal
+│   │   ├── selector.ts
+│   │   └── slice.ts
+│   ├── toast
+│   │   ├── selector.ts
+│   │   └── slice.ts
+│   └── workingHours
+│       ├── selector.ts
+│       └── slice.ts
+├── themes
+│   ├── ResetStyle.tsx
+│   ├── colors.ts
+│   ├── globalStyles.ts
+│   └── style.ts
+└── types
+    ├── common.ts
+    └── react.ts
 
 ```
 
