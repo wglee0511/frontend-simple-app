@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import styled from '@emotion/styled';
 import { map } from 'lodash';
+import ReactDOM from 'react-dom';
 import { fetchImageList } from 'src/apis/image';
 import InfinityScroll from 'src/components/Scroll';
 import { Spinner } from 'src/components/Spinner';
@@ -17,6 +18,7 @@ const S = {
     display: flex;
     justify-content: center;
     width: 100%;
+    position: relative;
   `,
   Wrapper: styled.div`
     @media (min-width: 600px) {
@@ -42,6 +44,7 @@ const S = {
     background-position: center;
     cursor: pointer;
     border: none;
+    transition: all 0.5s;
   `,
 };
 
@@ -63,15 +66,39 @@ function CatViewerImageContainer() {
         const targetWidth = (containerWidth - GAP * 2) / 3;
         const targetHeight = (targetWidth / width) * height;
         const rowSpan = Math.ceil(targetHeight / GAP);
-
         const isTarget = targetData?.id === value.id;
 
-        return (
+        return isTarget ? (
+          ReactDOM.createPortal(
+            <S.Button
+              key={`${value.id}-${index}`}
+              style={{
+                position: 'fixed',
+                top: 0,
+                left: 0,
+                width: isTarget ? '100%' : '0%',
+                height: isTarget ? '100%' : '0%',
+                zIndex: 1,
+                backgroundImage: `url(${value.url})`,
+              }}
+              onClick={() =>
+                setTargetData(() => {
+                  if (isTarget) {
+                    return undefined;
+                  }
+                  return value;
+                })
+              }
+            />,
+            (document.querySelector('#modal') as Element) ?? document.body,
+          )
+        ) : (
           <S.Button
             key={`${value.id}-${index}`}
             style={{
               gridRowEnd: `span ${rowSpan}`,
               backgroundImage: `url(${value.url})`,
+              width: !isTarget ? '100%' : '0%',
               height: containerWidth < 600 ? `${(containerWidth / width) * height}px` : '',
             }}
             onClick={() =>
@@ -106,7 +133,8 @@ function CatViewerImageContainer() {
     (async () => {
       await getImage();
     })();
-  }, [getImage]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (containerRef === null) {
@@ -130,7 +158,7 @@ function CatViewerImageContainer() {
   return (
     <InfinityScroll
       style={{ width: '100%' }}
-      nextCall={getImage}
+      nextCall={() => getImage()}
       isLoading={isLoading}
       isNext={isNext}
     >

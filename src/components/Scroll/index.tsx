@@ -15,11 +15,8 @@ const InfinityScroll = ({
     if (isLoading) {
       return;
     }
-    const { scrollHeight } = document.body;
-    const { innerHeight } = window;
-    const scrollTop =
-      (document.documentElement && document.documentElement.scrollTop) || document.body.scrollTop;
-    if (scrollHeight - innerHeight - scrollTop < 200) {
+    const { scrollTop, offsetHeight } = document.documentElement;
+    if (window.innerHeight + scrollTop >= offsetHeight) {
       nextCall();
     }
   }, 300);
