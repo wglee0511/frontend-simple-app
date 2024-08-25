@@ -48,7 +48,7 @@ const S = {
   `,
 };
 
-function CatViewerImageContainer() {
+const CatViewerImageContainer = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const dispatch = useAppDispatch();
 
@@ -170,6 +170,6 @@ function CatViewerImageContainer() {
       </S.Container>
     </InfinityScroll>
   );
-}
+};
 
 export default CatViewerImageContainer;
