@@ -1,4 +1,4 @@
-import { forEach, slice, split } from 'lodash';
+import { forEach, split } from 'lodash';
 import { Item } from 'src/components/Menu/type';
 import { WeekDayType } from 'src/containers/WorkingHours/type';
 
