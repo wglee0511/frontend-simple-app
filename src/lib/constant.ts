@@ -21,3 +21,4 @@ export const INITIAL_WEEK_WORKING_HOURS: WeeklyWorkingType[] = map(WeekDays, (va
 });
 
 export const MINUTE_VALUES = [0, 15, 30, 45];
+export const FLEX_GAP = 16;

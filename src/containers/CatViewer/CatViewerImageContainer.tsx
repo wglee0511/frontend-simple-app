@@ -2,16 +2,17 @@ import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 import styled from '@emotion/styled';
 import { map } from 'lodash';
-import ReactDOM from 'react-dom';
+import { trackWindowScroll } from 'react-lazy-load-image-component';
 import { fetchImageList } from 'src/apis/image';
 import InfinityScroll from 'src/components/Scroll';
 import { Spinner } from 'src/components/Spinner';
+import { FLEX_GAP } from 'src/lib/constant';
 import { useAppDispatch } from 'src/stores/hooks';
 import { setToast } from 'src/stores/toast/slice';
 
 import { CatImageData } from './type';
 
-const GAP = 16;
+const CatViewImage = React.lazy(() => import('./CatViewImage'));
 
 const S = {
   Container: styled.div`
@@ -25,26 +26,16 @@ const S = {
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
       grid-auto-rows: 0;
-      grid-gap: ${GAP}px;
+      grid-gap: ${FLEX_GAP}px;
     }
     @media (max-width: 600px) {
       display: flex;
       flex-wrap: wrap;
-      gap: ${GAP}px;
+      gap: ${FLEX_GAP}px;
     }
     width: 100%;
     max-width: 1200px;
-    padding: ${GAP}px;
-  `,
-  Button: styled.button`
-    width: 100%;
-    box-sizing: border-box;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    cursor: pointer;
-    border: none;
-    transition: all 0.5s;
+    padding: ${FLEX_GAP}px;
   `,
 };
 
@@ -62,53 +53,14 @@ const CatViewerImageContainer = () => {
   const renderImages = useMemo(
     () =>
       map(imageData, (value, index) => {
-        const { height, width } = value;
-        const targetWidth = (containerWidth - GAP * 2) / 3;
-        const targetHeight = (targetWidth / width) * height;
-        const rowSpan = Math.ceil(targetHeight / GAP);
-        const isTarget = targetData?.id === value.id;
-
-        return isTarget ? (
-          ReactDOM.createPortal(
-            <S.Button
-              key={`${value.id}-${index}`}
-              style={{
-                position: 'fixed',
-                top: 0,
-                left: 0,
-                width: isTarget ? '100%' : '0%',
-                height: isTarget ? '100%' : '0%',
-                zIndex: 1,
-                backgroundImage: `url(${value.url})`,
-              }}
-              onClick={() =>
-                setTargetData(() => {
-                  if (isTarget) {
-                    return undefined;
-                  }
-                  return value;
-                })
-              }
-            />,
-            (document.querySelector('#modal') as Element) ?? document.body,
-          )
-        ) : (
-          <S.Button
+        return (
+          <CatViewImage
             key={`${value.id}-${index}`}
-            style={{
-              gridRowEnd: `span ${rowSpan}`,
-              backgroundImage: `url(${value.url})`,
-              width: !isTarget ? '100%' : '0%',
-              height: containerWidth < 600 ? `${(containerWidth / width) * height}px` : '',
-            }}
-            onClick={() =>
-              setTargetData(() => {
-                if (isTarget) {
-                  return undefined;
-                }
-                return value;
-              })
-            }
+            setTargetData={setTargetData}
+            imageData={value}
+            index={index}
+            targetData={targetData}
+            containerWidth={containerWidth}
           />
         );
       }),
@@ -163,13 +115,11 @@ const CatViewerImageContainer = () => {
       isNext={isNext}
     >
       <S.Container>
-        <S.Wrapper ref={containerRef}>
-          {imageData && renderImages}
-          {isLoading && <Spinner />}
-        </S.Wrapper>
+        <S.Wrapper ref={containerRef}>{imageData && renderImages}</S.Wrapper>
       </S.Container>
+      {isLoading && <Spinner />}
     </InfinityScroll>
   );
 };
 
-export default CatViewerImageContainer;
+export default trackWindowScroll(CatViewerImageContainer);
